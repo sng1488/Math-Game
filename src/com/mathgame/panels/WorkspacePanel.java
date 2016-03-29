@@ -221,9 +221,17 @@ public class WorkspacePanel extends JPanel {
 		}
 		((NumberCard)(this.getComponent(0))).setLatexValue(((NumberCard)(this.getComponent(0))).getStrValue());
 		((NumberCard)(this.getComponent(2))).setLatexValue(((NumberCard)(this.getComponent(2))).getStrValue());
-		AnswerDialog ansInput = new AnswerDialog((JFrame) this.getTopLevelAncestor(), answer, 
-				"{"+((NumberCard)(this.getComponent(0))).getLatexValue() + "} " + op + " {" +
+		AnswerDialog ansInput;
+		if((((NumberCard)this.getComponent(0)).getLatexValue().contains("_")||((NumberCard)(this.getComponent(0))).getLatexValue().contains("^"))&&op.equals("^")){
+			ansInput = new AnswerDialog((JFrame) this.getTopLevelAncestor(), answer, 
+				"({"+((NumberCard)(this.getComponent(0))).getLatexValue() + "}) " + op + " {" +
 				((NumberCard)(this.getComponent(2))).getLatexValue()+"}=");
+		}
+		else{
+			ansInput = new AnswerDialog((JFrame) this.getTopLevelAncestor(), answer, 
+					"{"+((NumberCard)(this.getComponent(0))).getLatexValue() + "} " + op + " {" +
+					((NumberCard)(this.getComponent(2))).getLatexValue()+"}=");
+		}
 		ansInput.pack();
 		ansInput.setModalityType(AnswerDialog.DEFAULT_MODALITY_TYPE); // Replaces setModal(true)
 		ansInput.setVisible(true);
